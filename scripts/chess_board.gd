@@ -35,6 +35,6 @@ func setup_initial_board() -> void:
 func _ready() -> void:
 	create_chess_board()
 	setup_initial_board()
-	print(board)
+	
 func _process(_delta: float) -> void:
 	pass

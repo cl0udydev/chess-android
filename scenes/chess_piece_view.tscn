@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dyjq14muget2m"]
+
+[ext_resource type="Script" uid="uid://cw1sen18dthqs" path="res://scripts/chess_piece_view.gd" id="1_hppl4"]
+
+[node name="chess_piece_view" type="TextureRect" unique_id=981423214]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_hppl4")

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dt48rs7036jrm"]
+
+[ext_resource type="PackedScene" uid="uid://bj533tatb11t7" path="res://scenes/chess_view.tscn" id="1_errlg"]
+
+[node name="test" type="Node2D" unique_id=262628542]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=858616607]
+position = Vector2(7, 25)
+zoom = Vector2(1.5, 1.5)
+
+[node name="chess_view" parent="." unique_id=994719514 instance=ExtResource("1_errlg")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 6.0
+offset_top = 31.0
+offset_right = 6.0
+offset_bottom = 31.0
+grow_horizontal = 1
+grow_vertical = 1

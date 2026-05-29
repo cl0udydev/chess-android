@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="chess"
-run/main_scene="uid://1tj6ndgfbuit"
+run/main_scene="uid://dt48rs7036jrm"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
+
+[global_group]
+
+logical_board=""
 
 [physics]
 
