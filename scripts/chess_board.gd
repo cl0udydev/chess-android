@@ -21,6 +21,20 @@ signal piece_spawned(type: int, color: int, row: int, col: int)
 # global alert signal. Sent every time a piece is shifted from one grid cell to another. Allows the view layer to update and clear corresponding visual nodes.
 signal piece_moved(from_row: int, from_col: int, to_row: int, to_col: int)
 
+# chief referee method. It screens out identity moves, absent source data, friendly fire, and evaluates combined structural geometric patterns to determine basic movement legality for any selected piece.
+func is_move_valid(from_row: int, from_col: int, to_row: int, to_col: int) -> bool:
+	if from_row == to_row and from_col == to_col:
+		return false
+	var piece = get_piece_at(from_row, from_col)
+	if piece == null:
+		return false
+	var target_piece = get_piece_at(to_row, to_col)
+	if target_piece != null and target_piece.color == piece.color:
+		return false
+	
+	return piece.is_geometry_valid(from_row, from_col, to_row, to_col)
+
+
 # processes the logical displacement of a piece inside the matrix. It extracts the resource data, frees the initial cell, re-assigns the target cell, and fires the movement signal.
 func move_piece(from_row: int, from_col: int, to_row: int, to_col: int) -> void:
 	var piece_to_move = board[from_row][from_col]

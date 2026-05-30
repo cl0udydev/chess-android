@@ -37,7 +37,7 @@ func _on_piece_moved(from_row: int, from_col: int, to_row: int, to_col: int) -> 
 	# safely destroys any pre-existing piece at the destination cell (handling chess captures).
 	for child in to_cell.get_children():
 		child.queue_free()
-	# setches the updated data from the Model to re-draw the piece at its new destination.
+	# fetches the updated data from the Model to re-draw the piece at its new destination.
 	var piece_data = chess_board.get_piece_at(to_row, to_col)
 	if piece_data != null:
 		_on_piece_spawned(piece_data.type, piece_data.color, to_row, to_col)
@@ -65,8 +65,10 @@ func _on_cell_input(event: InputEvent, row: int, col: int) -> void:
 				var from_row = selected_cell.y
 				var from_col = selected_cell.x
 				print("пытаемся совершить ход из ", from_row, ", ", from_col, " в ", row, ", ", col)
-				# Calls down to the Model to execute the logical transformation.
-				chess_board.move_piece(from_row, from_col, row, col)
+				# requests the Model to validate the move configuration before triggering physical displacement.
+				if chess_board.is_move_valid(from_row, from_col, row, col):
+					# Calls down to the Model to execute the logical transformation.
+					chess_board.move_piece(from_row, from_col, row, col)
 				# Resets the state machine back to selection mode.
 				selected_cell = Vector2i(-1, -1)
 
