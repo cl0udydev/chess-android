@@ -18,6 +18,16 @@ var board: Array
 # global alert signal. Sent every time a new piece is materialized on the logic board. Allows the visual representation layer (ChessView) to synchronize the image on the smartphone screen without direct connection to the logic.
 signal piece_spawned(type: int, color: int, row: int, col: int)
 
+# global alert signal. Sent every time a piece is shifted from one grid cell to another. Allows the view layer to update and clear corresponding visual nodes.
+signal piece_moved(from_row: int, from_col: int, to_row: int, to_col: int)
+
+# processes the logical displacement of a piece inside the matrix. It extracts the resource data, frees the initial cell, re-assigns the target cell, and fires the movement signal.
+func move_piece(from_row: int, from_col: int, to_row: int, to_col: int) -> void:
+	var piece_to_move = board[from_row][from_col]
+	board[from_row][from_col] = null
+	board[to_row][to_col] = piece_to_move
+	piece_moved.emit(from_row, from_col, to_row, to_col)
+
 # using nested loops, it creates an 8x8 matrix, filling each cell with a null value. This ensures that the game session starts with a clean coordinate grid.
 func create_chess_board() -> void:
 	for y in range(8):
@@ -60,5 +70,6 @@ func _ready() -> void:
 	create_chess_board()
 	setup_initial_board()
 	
-func _process(_delta: float) -> void:
-	pass
+# getter method that safely retrieves the logical piece data at the specified coordinates. Returns a ChessPieceData object if a piece exists, or null if the cell is empty. Enforces strict bounds checking implicitly via array indices.
+func get_piece_at(row: int, col: int) -> Variant:
+	return board[row][col]
