@@ -31,8 +31,9 @@ func is_move_valid(from_row: int, from_col: int, to_row: int, to_col: int) -> bo
 	var target_piece = get_piece_at(to_row, to_col)
 	if target_piece != null and target_piece.color == piece.color:
 		return false
-	
-	return piece.is_geometry_valid(from_row, from_col, to_row, to_col)
+		
+	var has_enemy = target_piece != null
+	return piece.is_geometry_valid(from_row, from_col, to_row, to_col, has_enemy)
 
 
 # processes the logical displacement of a piece inside the matrix. It extracts the resource data, frees the initial cell, re-assigns the target cell, and fires the movement signal.
